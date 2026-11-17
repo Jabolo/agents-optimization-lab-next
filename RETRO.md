@@ -5,7 +5,19 @@ summary), task contract, diff, commands and actual output. A new chat cannot
 automatically see the previous one. If using the same workspace, identify exactly
 which artifacts it should inspect. Save observations before accepting advice.
 If a transcript is unavailable, label a concise summary as such. Include relevant
-untracked files as well as the diff; a diff alone may not contain them.
+new files as well as changes from the recorded baseline. A plain `git diff` may
+miss staged, committed, untracked, or ignored files, including `runs/`. For
+example, ask your agent:
+
+> Save a clearly labelled interaction summary, the commands and actual outputs
+> with exit statuses, changes from my recorded baseline, and relevant new files
+> in `runs/initial/`. Mark missing evidence unknown. Tell me which files to give
+> the fresh chat; do not invent a transcript or my personal observations.
+
+Give that fresh chat the saved files and the selected task card, or identify
+their exact paths if it can access your workspace. For task 2, also give it the
+relevant contract. Keep the first attempt's final checks in `runs/initial/`;
+`runs/changed/` is for the later experiment.
 
 Try this and question the answer:
 

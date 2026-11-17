@@ -12,8 +12,8 @@ the acknowledgement. On retry, the notification is missing. The service also has
 older data and a separate reporting database, so a repair needs more than a happy
 path check.
 
-**Start here:** open this task folder in your existing coding agent. From this
-folder, run (or ask the agent to run):
+**Start here:** open the repository root in your existing coding agent. From the
+`task2` folder, run (or ask the agent to run):
 
 ```sh
 python3 incident.py
@@ -31,8 +31,9 @@ On Windows, use a verified Python 3.11+ command such as `py -3` in place of
 ## What to do
 
 1. Before editing, note your usual agent workflow, your expectation, and the start
-   time. Keep an untouched copy of the whole repository in a separate sibling
-   folder for a possible repeat; do not overwrite an existing folder.
+   time. For a possible repeat, keep an untouched copy of the whole repository in
+   a separate sibling folder; do not overwrite an existing folder. If you cannot
+   make one, note that and continue with the Adapt route in EXPERIMENT.md.
 2. Run the incident. Ask your agent what the output shows and what check could
    verify a repair. Decide how you want to work, then let your agent help normally.
 3. To run one relevant failing test, from this folder use:

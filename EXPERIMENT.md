@@ -2,8 +2,9 @@
 
 Before starting, name your task and what you expect from your usual approach.
 Record agent/model/settings where exposed; unknown is acceptable. Save the first
-test result, implementation diff, and interaction or an honest summary in
-`runs/initial/`; keep changed-attempt evidence separately in `runs/changed/`.
+test result, first attempt's final checks, implementation changes, and interaction
+or an honest summary in `runs/initial/`; keep the later experiment's evidence
+separately in `runs/changed/`.
 
 After the fresh-chat retro, choose **one** change: for example clearer acceptance
 criteria, a different model, an earlier targeted check, a fresh reviewer, a small
@@ -24,7 +25,7 @@ Choose a practical route:
   folder and a fresh implementation chat. Use the changed workflow. The whole
   repository keeps task links, guides, and agent instructions together. Never copy
   a repository inside itself or overwrite your first attempt or an existing folder.
-  After publication, a fresh clone at the same commit works; for a downloaded ZIP,
+  A fresh clone checked out at the recorded baseline commit works; for a downloaded ZIP,
   extract the same archive a second time into a new folder. Verify the starter
   files/commit match. If no clean baseline is available, record that limitation
   and use Adapt, or stop and ask for help.
