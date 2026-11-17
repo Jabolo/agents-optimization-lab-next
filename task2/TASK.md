@@ -67,12 +67,9 @@ to keep or change belong to you.
   disclosed scenario checks a different persisted migration, lost acknowledgement,
   restart, duplicate delivery, stock, and reporting outcome under the same public
   contract. A pass covers that scenario; it is not an independent hidden test.
-- **If your agent finishes quickly:** choose one behavior from the contract that
-  your checks may not cover. Ask your agent to construct another concrete case,
-  run it, and explain what its result establishes. Check its assumptions against
-  the contract: a probe tied to one internal table may not apply to another valid
-  implementation. Decide whether the evidence changes your acceptance or next
-  check. An agent can help, but the choice is yours.
+- **Want to challenge a green result?** Use the short exercise below to choose
+  a contract claim, inspect its coverage, and try an additional case. You can
+  also do this for a repaired slice while the full suite is still red.
 - **Lab outcome:** you can name one workflow habit or experiment, an observation
   supported by a real output or interaction, and what you will keep, change, or
   investigate next. You can reach this outcome while some tests remain red.
@@ -85,3 +82,47 @@ cases, the point is to learn from **how** you worked.
 
 The presenter will leave time for voluntary sharing and Q&A. You can keep working
 at your own pace and continue after the session.
+
+## Challenge a result
+
+Pick a behavior you care about and ask: **what could still go wrong even though
+this check passed?** You can use the same agent or a fresh chat. Give a fresh
+chat the contract, solution changes (including new files), and actual test
+results; it cannot see the previous interaction automatically.
+
+1. Ask your agent to suggest **two or three** public contract claims worth
+   challenging. For each, have it point to the requirement, inspect relevant
+   supplied test bodies, and say what they check, or say it could not find a
+   direct test. A missing match in a quick search is a lead, not proof that the
+   behavior is uncovered. Boundaries, invalid inputs, retries, failures, and
+   interactions between operations are all possible starting points; choose one
+   claim yourself.
+2. Before running a new case, ask what inputs, expected outcome and preserved
+   state follow from that requirement. Ask why existing checks might miss it.
+   Review the expectation against the contract. Avoid requiring an internal table
+   or implementation detail unless the contract requires it.
+3. Ask the agent to create and run a small, reproducible check of your chosen
+   claim using public interfaces and temporary data. Keep supplied tests and the
+   solution unchanged during the check. Save the check, command, output and exit
+   status under `runs/changed/` at the repository root if this is your workflow
+   experiment, or with your first attempt's evidence if not. If the agent cannot
+   write there, use a location you can write to or save a note; mark the case as
+   proposed, not run, if you cannot execute it.
+4. If it fails, decide whether the result shows a setup problem, a mistaken test
+   expectation, or a possible contract violation. Investigate or fix it if worth
+   the effort; keep the original output. If it passes, note exactly which case it
+   covered. Either way, decide what evidence you would need before accepting or
+   stopping. One extra case cannot prove the whole service correct.
+
+Optional starting prompt:
+
+> Help me challenge my current task-2 result. Read the public contract, my
+> solution and the supplied tests. Suggest two or three important contract
+> claims to examine; cite each requirement, inspect the relevant test bodies and
+> say what they check, or say a direct test was not found. Explain the uncertainty
+> and let me choose one. Do not
+> assume there is a defect, change the solution, or rely on private materials.
+
+After choosing, ask for the concrete case and expected behavior first, then ask
+the agent to run it and preserve the evidence. If time is short, one inspected
+claim and a recorded next check are useful progress.
