@@ -12,7 +12,7 @@ Usual approach / expectation:
 | --- | --- | --- |
 | Start / stop / elapsed / pauses | | |
 | Setup / retro time | | |
-| Evidence folder / clean starter copy | | |
+| Evidence folder / clean whole-repository copy | | |
 | Human steering messages / review minutes | | |
 | Command / exit status / raw summary (methods vs subtests) | | |
 | Visible cost / tokens, including review | | |

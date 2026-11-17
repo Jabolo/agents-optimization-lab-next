@@ -31,7 +31,8 @@ On Windows, use a verified Python 3.11+ command such as `py -3` in place of
 ## What to do
 
 1. Before editing, note your usual agent workflow, your expectation, and the start
-   time. Keep an untouched copy of this task for a possible repeat.
+   time. Keep an untouched copy of the whole repository in a separate sibling
+   folder for a possible repeat; do not overwrite an existing folder.
 2. Run the incident. Ask your agent what the output shows and what check could
    verify a repair. Decide how you want to work, then let your agent help normally.
 3. To run one relevant failing test, from this folder use:

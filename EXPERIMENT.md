@@ -17,11 +17,17 @@ the change you must choose.
 
 Choose a practical route:
 
-- **Adapt:** apply the change to the current incomplete attempt and observe the
-  next step. This tests usefulness at that moment, not total-time superiority.
-- **Repeat:** start from the same untouched code/tests in a new folder and fresh
-  implementation chat; use the changed workflow. Do not reset or overwrite your
-  first attempt. A fresh clone at the same commit is useful after publication.
+- **Adapt:** apply the change to your current attempt or its next review/check,
+  even if tests are already green, and observe what happens. This tests usefulness
+  at that moment, not total-time superiority.
+- **Repeat:** use an untouched copy of the whole repository in a separate sibling
+  folder and a fresh implementation chat. Use the changed workflow. The whole
+  repository keeps task links, guides, and agent instructions together. Never copy
+  a repository inside itself or overwrite your first attempt or an existing folder.
+  After publication, a fresh clone at the same commit works; for a downloaded ZIP,
+  extract the same archive a second time into a new folder. Verify the starter
+  files/commit match. If no clean baseline is available, record that limitation
+  and use Adapt, or stop and ask for help.
 
 For repeat, keep task, requirements, supplied tests, and environment constant.
 Record any solution exposure or retained memory. If you also change the model,

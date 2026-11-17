@@ -9,18 +9,18 @@ You need Python 3.11+ and your existing authenticated agent. No packages or serv
 ## Start
 
 1. **Choose a task.** [Task 1](task1/TASK.md) is the small demo. [Task 2](task2/TASK.md) is a deeper recovery incident; it is independent of task 1.
-2. **Before editing**, note the start time, your usual approach, and one expectation. Ask your agent to preserve an untouched copy and make `runs/initial/` and `runs/changed/` for your evidence. Copy [RESULT-TEMPLATE.md](RESULT-TEMPLATE.md) to `runs/RESULT.md`, or use a short note in your own format. Unknown values are fine.
+2. **Before editing**, note the start time, your usual approach, and one expectation. Ask your agent to preserve an untouched copy of the **whole repository** in a separate sibling folder, outside this repository, without overwriting anything. Make `runs/initial/` and `runs/changed/` for your evidence. Copy [RESULT-TEMPLATE.md](RESULT-TEMPLATE.md) to `runs/RESULT.md`, or use a short note in your own format. Unknown values are fine.
 3. **Observe the starting state.** For task 1, run `python3 -m unittest discover -s tests -v` in `task1`. For task 2, run `python3 incident.py` in `task2`, then the focused check shown in [its task card](task2/TASK.md). Save the actual output. Failing assertions and implementation exceptions are expected in the starter; missing Python, import errors, and undiscovered tests are setup problems.
 4. **Work normally with your agent.** Inspect the result and run checks. Then use [RETRO.md](RETRO.md) in a fresh chat, choose one workflow change, and try it using [EXPERIMENT.md](EXPERIMENT.md).
 5. **Record your decision.** What did you observe? What did you change? What will you keep, change, or investigate next, and what evidence supports that choice?
 
 To start task 2, point your agent at this repository and paste:
 
-> Help me investigate task 2 and improve how I work with you. First ask for my usual approach and expectation, or let me mark them unknown. Preserve a clean task copy and create `runs/initial/` and `runs/changed/`. From `task2`, run `python3 incident.py` and the focused lost-ack test in TASK.md; save their actual output. Explain what happened briefly, then help me solve it normally. Keep supplied tests intact. Help me preserve our interaction and check results for a fresh-chat retro. My observation and final choice are mine.
+> Help me investigate task 2 and improve how I work with you. First ask for my usual approach and expectation, or let me mark them unknown. Preserve a clean copy of the whole repository in a separate sibling folder without overwriting anything, and create `runs/initial/` and `runs/changed/`. From `task2`, run `python3 incident.py` and the focused lost-ack test in TASK.md; save their actual output. Explain what happened briefly, then help me solve it normally. Keep supplied tests intact. Help me preserve our interaction and check results for a fresh-chat retro. My observation and final choice are mine.
 
 For task 1, paste:
 
-> Help me investigate task 1 and improve how I work with you. First ask for my usual approach and expectation, or let me mark them unknown. Preserve a clean task copy and create `runs/initial/` and `runs/changed/`. From `task1`, run `python3 -m unittest discover -s tests -v` and save the actual output. Explain what happened briefly, then help me solve it normally. Keep supplied tests intact. Help me preserve our interaction and check results for a fresh-chat retro. My observation and final choice are mine.
+> Help me investigate task 1 and improve how I work with you. First ask for my usual approach and expectation, or let me mark them unknown. Preserve a clean copy of the whole repository in a separate sibling folder without overwriting anything, and create `runs/initial/` and `runs/changed/`. From `task1`, run `python3 -m unittest discover -s tests -v` and save the actual output. Explain what happened briefly, then help me solve it normally. Keep supplied tests intact. Help me preserve our interaction and check results for a fresh-chat retro. My observation and final choice are mine.
 
 If your agent cannot export a transcript, save a clearly labelled summary, actual commands and outputs, the diff, and copies of relevant untracked files. A new chat does not automatically see the old one.
 
