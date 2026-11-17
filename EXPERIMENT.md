@@ -9,6 +9,12 @@ After the fresh-chat retro, choose **one** change: for example clearer acceptanc
 criteria, a different model, an earlier targeted check, a fresh reviewer, a small
 reusable skill, or less planning. State the expected benefit and possible cost.
 
+For example: “My agent reported success but showed no check output. I expect
+asking for the actual result to make review clearer; it may add a tool call.”
+Try that one request, retain the command and output, and decide whether it gave
+you useful evidence. This is an illustration, not a claim that it saves time or
+the change you must choose.
+
 Choose a practical route:
 
 - **Adapt:** apply the change to the current incomplete attempt and observe the

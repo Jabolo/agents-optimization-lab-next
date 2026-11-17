@@ -4,6 +4,8 @@ Give a new chat the relevant conversation/transcript (or clearly labeled
 summary), task contract, diff, commands and actual output. A new chat cannot
 automatically see the previous one. If using the same workspace, identify exactly
 which artifacts it should inspect. Save observations before accepting advice.
+If a transcript is unavailable, label a concise summary as such. Include relevant
+untracked files as well as the diff; a diff alone may not contain them.
 
 Try this and question the answer:
 

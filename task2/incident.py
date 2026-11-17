@@ -34,7 +34,7 @@ def main():
             retry = []
             acknowledged = service.dispatch(retry.append)
             print(f'Retry after restart: {len(retry)} delivery, {acknowledged} acknowledged')
-            if delivered and retry and delivered[0] == retry[0]:
+            if len(delivered) == 1 and len(retry) == 1 and acknowledged == 1 and delivered[0] == retry[0]:
                 print('Expected duplicate retry preserved the original notification.')
                 return 0
             print('INCIDENT: the committed notification could not be safely retried.')

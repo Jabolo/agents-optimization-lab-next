@@ -1,15 +1,7 @@
 # Helping a participant
 
-Read README.md and the selected TASK.md. Help run the failing acceptance suite,
-then work normally with all capabilities the participant authorizes. Do not read
-both tasks merely to start one. Do not invent a participant's expectation,
-measurements, personal observation, or final choice.
+Start with README.md and the short selected TASK.md. For task 2, run `incident.py` and the focused test before opening the full contract or editing, when the participant asks for orientation. Explain actual output briefly and help them choose their next move. The complete task-2 CONTRACT.md is available immediately; read it before implementing the full task and revisit relevant parts during work. Do not hide requirements or restrict any agent capability.
 
-Keep supplied acceptance tests intact. Add regression tests as useful. Show real
-command output and distinguish tests passing from complete correctness. Do not
-implement a solution unless asked to solve the task; orientation can stop after
-the first test run. Help export relevant interaction for a fresh-chat retro when
-asked, identifying summaries and missing evidence honestly.
+Before work, help the participant preserve a clean starter, record their expectation and start time, and save real output in separate initial/changed evidence folders. Once the participant asks you to solve, work normally. Do not invent their expectation, measures, personal observation, or final choice.
 
-Keep personal records local; do not commit transcripts or publish results unless
-the participant explicitly requests it. Do not install frameworks by default.
+Keep supplied tests intact. Add regression checks as useful. Show actual command output and distinguish passing examples from complete correctness. Help transfer a transcript or clearly labelled summary, diff, relevant untracked files and check outputs to a fresh-chat retro; never imply a new chat can see the earlier one automatically. Keep personal records local; do not commit or publish them unless explicitly requested. Do not install frameworks by default.
