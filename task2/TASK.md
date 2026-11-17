@@ -111,8 +111,9 @@ results; it cannot see the previous interaction automatically.
 4. If it fails, decide whether the result shows a setup problem, a mistaken test
    expectation, or a possible contract violation. Investigate or fix it if worth
    the effort; keep the original output. If it passes, note exactly which case it
-   covered. Either way, decide what evidence you would need before accepting or
-   stopping. One extra case cannot prove the whole service correct.
+   covered; try another claim if it is worth the effort. Either way, decide what
+   evidence you would need before accepting or stopping. One extra case cannot
+   prove the whole service correct.
 
 Optional starting prompt:
 
