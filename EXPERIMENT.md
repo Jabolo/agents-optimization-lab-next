@@ -9,6 +9,9 @@ separately in `runs/changed/`.
 After the fresh-chat retro, choose **one** change: for example clearer acceptance
 criteria, a different model, an earlier targeted check, a fresh reviewer, a small
 reusable skill, or less planning. State the expected benefit and possible cost.
+The optional [task-2 boundary map](task2/TASK.md#challenge-a-result) is one
+technique to test, including after a green suite; compare its evidence and effort
+with your usual approach rather than assuming that more review is always better.
 
 For example: “My agent reported success but showed no check output. I expect
 asking for the actual result to make review clearer; it may add a tool call.”

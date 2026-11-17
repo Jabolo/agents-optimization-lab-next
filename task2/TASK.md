@@ -90,13 +90,22 @@ this check passed?** You can use the same agent or a fresh chat. Give a fresh
 chat the contract, solution changes (including new files), and actual test
 results; it cannot see the previous interaction automatically.
 
-1. Ask your agent to suggest **two or three** public contract claims worth
-   challenging. For each, have it point to the requirement, inspect relevant
-   supplied test bodies, and say what they check, or say it could not find a
-   direct test. A missing match in a quick search is a lead, not proof that the
-   behavior is uncovered. Boundaries, invalid inputs, retries, failures, and
-   interactions between operations are all possible starting points; choose one
-   claim yourself.
+One technique to try is a **boundary map**: compare what the contract requires
+at different places data or state enters or changes with what the code and tests
+actually do. This is a starting point, not a required tool or a promise to find
+a defect. You might instead try a different agent, model, tool, skill, or technique.
+Choose one change you want to evaluate and note what you expect it to help with.
+
+If you choose the boundary map:
+
+1. Ask your agent to make a map of three to five different paths
+   where data or state enters or changes. Consider both new inputs and existing
+   persisted state, if the contract applies. For each path, compare the relevant
+   contract rule and failure behavior with the implementation and the actual
+   supplied test bodies. For each, label a direct example found, an uncertainty,
+   or a possible mismatch supported by specific evidence. A missing match in a
+   quick search is a lead, not proof. Have it rank two or three specific cases by
+   risk and evidence, then choose one yourself. Narrow the map if time is short.
 2. Before running a new case, ask what inputs, expected outcome and preserved
    state follow from that requirement. Ask why existing checks might miss it.
    Review the expectation against the contract. Avoid requiring an internal table
@@ -117,13 +126,19 @@ results; it cannot see the previous interaction automatically.
 
 Optional starting prompt:
 
-> Help me challenge my current task-2 result. Read the public contract, my
-> solution and the supplied tests. Suggest two or three important contract
-> claims to examine; cite each requirement, inspect the relevant test bodies and
-> say what they check, or say a direct test was not found. Explain the uncertainty
-> and let me choose one. Do not
-> assume there is a defect, change the solution, or rely on private materials.
+> Help me challenge my current task-2 result using a small boundary map. From
+> the public contract, identify three to five different paths where data or
+> state enters or changes, considering new inputs and existing persisted state
+> where relevant. For each, cite the requirement and compare its validation or
+> failure behavior with the implementation and relevant supplied test bodies.
+> For each, label a direct example found, an uncertainty, or a possible mismatch
+> supported by specific evidence. Rank two or three concrete cases by risk and
+> evidence, explain the uncertainty, and let me choose one. Do not assume there
+> is a defect, modify the solution or supplied tests, or use private materials.
 
 After choosing, ask for the concrete case and expected behavior first, then ask
-the agent to run it and preserve the evidence. If time is short, one inspected
-claim and a recorded next check are useful progress.
+the agent to run it and preserve the evidence. Compare this workflow with your
+usual approach: what did it help you see, what did it cost in time, effort, or
+visible usage, and would you keep, change, or remove it? Unknown cost is fine.
+You can turn a useful practice into your own prompt or skill for a later task.
+If time is short, one inspected claim and a recorded next check are useful progress.
