@@ -12,8 +12,9 @@ Usual approach / expectation:
 | --- | --- | --- |
 | Start / stop / elapsed / pauses | | |
 | Setup / retro time | | |
+| Evidence folder / clean starter copy | | |
 | Human steering messages / review minutes | | |
-| Passed / failed / errors / command | | |
+| Command / exit status / raw summary (methods vs subtests) | | |
 | Visible cost / tokens, including review | | |
 | Remaining quality gaps | | |
 

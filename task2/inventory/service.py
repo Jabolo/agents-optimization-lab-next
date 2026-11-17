@@ -1,5 +1,6 @@
 from . import allocation, lifecycle
-from .events import history
+from .events import emit, history
+from .storage import reservation
 
 
 class Service:
@@ -14,6 +15,15 @@ class Service:
 
     def expire(self, now):
         return lifecycle.expire(self.conn, now)
+
+    def amend(self, key, change_id, qty, expires_at, expected_version, now):
+        item = reservation(self.conn, key)
+        self.conn.execute('UPDATE stock SET available=available+? WHERE sku=?',
+                          (item['qty'] - qty, item['sku']))
+        self.conn.execute('UPDATE reservations SET qty=?,expires_at=?,version=version+1 WHERE key=?',
+                          (qty, expires_at, key))
+        emit(self.conn, key, 'amended')
+        return reservation(self.conn, key)
 
     def available(self, sku):
         return self.conn.execute('SELECT available FROM stock WHERE sku=?', (sku,)).fetchone()[0]

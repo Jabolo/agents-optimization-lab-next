@@ -2,7 +2,8 @@
 
 Before starting, name your task and what you expect from your usual approach.
 Record agent/model/settings where exposed; unknown is acceptable. Save the first
-test result, implementation diff, and interaction or an honest summary in `runs/`.
+test result, implementation diff, and interaction or an honest summary in
+`runs/initial/`; keep changed-attempt evidence separately in `runs/changed/`.
 
 After the fresh-chat retro, choose **one** change: for example clearer acceptance
 criteria, a different model, an earlier targeted check, a fresh reviewer, a small
@@ -27,9 +28,17 @@ Measure only what you can observe:
 | --- | --- |
 | Time | Wall-clock start to stop, including checking; mark pauses, setup, and retro separately |
 | Human effort | Count substantive steering/correction messages; separately note active review minutes |
-| Outcome | Passed/failed/error test counts and named contract gaps; keep unsuccessful attempts |
+| Outcome | Exact command, exit status, raw test summary, and named contract gaps; keep unsuccessful attempts |
 | Cost | Provider-reported task cost/tokens if available, including review; otherwise unknown |
 | Change | Files changed, surprising behavior, extra complexity, and checks you added |
+
+Unittest counts test methods and can report several failing subtests per method.
+Do not subtract failure/error records from methods run to calculate passes.
+Implementation exceptions can be intentional starter errors; import/setup errors
+are different. Optional `check.py` records method outcomes separately from
+failure/error records and fingerprints task files; its elapsed time is only suite
+runtime. Record solving and retro intervals yourself. Added tests change the
+oracle, so disclose them and retain supplied-suite results for comparisons.
 
 Same tests and a smaller elapsed time are useful observations. One repeat is not
 proof that the workflow caused a speedup: familiarity, cache, randomness, latency,

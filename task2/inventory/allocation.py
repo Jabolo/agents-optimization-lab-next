@@ -19,7 +19,7 @@ def reserve(conn, key, sku, qty, expires_at, now):
     if row is None or row['available'] < qty:
         raise Unavailable(sku)
     conn.execute('UPDATE stock SET available=? WHERE sku=?', (row['available'] - qty, sku))
-    conn.execute('INSERT INTO reservations VALUES (?, ?, ?, ?, ?)',
-                 (key, sku, qty, expires_at, 'active'))
+    conn.execute('INSERT INTO reservations VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+                 (key, sku, qty, expires_at, 'active', 1, qty, expires_at))
     emit(conn, key, 'reserved')
     return reservation(conn, key)

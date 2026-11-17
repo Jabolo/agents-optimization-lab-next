@@ -33,7 +33,7 @@ class ReservationsTests(unittest.TestCase):
     def test_reserve_and_exact_retry(self):
         result = self.reserve()
         self.assertEqual(result, {'key': 'a', 'sku': 'tea', 'qty': 2,
-                                 'expires_at': 20, 'status': 'active'})
+                                 'expires_at': 20, 'status': 'active', 'version': 1})
         self.assertEqual(self.reserve(), result)
         self.assertEqual(self.service.available('tea'), 3)
         self.assertEqual(self.kinds('a'), ['reserved'])
