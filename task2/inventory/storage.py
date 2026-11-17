@@ -1,9 +1,14 @@
 import sqlite3
 
 
-def connect(path):
+class MigrationError(ValueError):
+    pass
+
+
+def connect(path, *, migration_hook=None):
     conn = sqlite3.connect(path, isolation_level=None, timeout=5)
     conn.row_factory = sqlite3.Row
+    fresh = conn.execute("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='stock'").fetchone()[0] == 0
     conn.executescript('''
         CREATE TABLE IF NOT EXISTS stock(sku TEXT PRIMARY KEY, available INTEGER NOT NULL);
         CREATE TABLE IF NOT EXISTS reservations(
@@ -16,8 +21,12 @@ def connect(path):
             expires_at INTEGER NOT NULL, expected_version INTEGER NOT NULL,
             PRIMARY KEY(key, change_id));
         CREATE TABLE IF NOT EXISTS events(
-            id INTEGER PRIMARY KEY, key TEXT NOT NULL, kind TEXT NOT NULL);
+            id INTEGER PRIMARY KEY, key TEXT NOT NULL, kind TEXT NOT NULL,
+            sku TEXT, qty INTEGER, expires_at INTEGER, status TEXT,
+            version INTEGER, published INTEGER NOT NULL DEFAULT 0);
     ''')
+    if fresh:
+        conn.execute('PRAGMA user_version=2')
     return conn
 
 

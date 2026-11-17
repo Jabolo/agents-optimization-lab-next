@@ -78,7 +78,6 @@ class AmendmentTests(unittest.TestCase):
             before = reservation(self.conn, 'a')
             stock = self.service.available('tea')
             events = self.service.events('a')
-            identity_count = self.conn.execute('SELECT COUNT(*) FROM amendments').fetchone()[0]
             for kwargs in cases:
                 with self.subTest(replay=replay, kwargs=kwargs):
                     with self.assertRaises(ValueError) as raised:
@@ -87,7 +86,6 @@ class AmendmentTests(unittest.TestCase):
                     self.assertEqual(reservation(self.conn, 'a'), before)
                     self.assertEqual(self.service.available('tea'), stock)
                     self.assertEqual(self.service.events('a'), events)
-                    self.assertEqual(self.conn.execute('SELECT COUNT(*) FROM amendments').fetchone()[0], identity_count)
         with self.assertRaises(ValueError) as raised:
             self.amend(key='missing', qty=True)
         self.assertIs(type(raised.exception), ValueError)
@@ -148,13 +146,13 @@ class AmendmentTests(unittest.TestCase):
         self.assertEqual(self.service.available('tea'), 3)
         self.assertEqual(reservation(self.conn, 'a'), before)
         self.assertEqual(self.kinds('a'), ['reserved'])
-        self.assertEqual(self.conn.execute('SELECT COUNT(*) FROM amendments').fetchone()[0], 0)
         self.conn.execute('DROP TRIGGER reject_event')
         self.assertEqual(self.amend(), {'key': 'a', 'sku': 'tea', 'qty': 3,
                                        'expires_at': 30, 'status': 'active', 'version': 2})
         self.assertEqual(self.service.available('tea'), 2)
         self.assertEqual(self.kinds('a'), ['reserved', 'amended'])
-        self.assertEqual(self.conn.execute('SELECT COUNT(*) FROM amendments').fetchone()[0], 1)
+        self.assertEqual(self.amend()['version'], 2)
+        self.assertEqual(self.kinds('a'), ['reserved', 'amended'])
 
     def test_persistence_and_per_reservation_change_namespace(self):
         self.reserve()

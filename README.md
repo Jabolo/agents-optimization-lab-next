@@ -40,7 +40,7 @@ workflow. Inspect changes and add checks for gaps you find.
 | Task | Start command from repo root | Challenge |
 | --- | --- | --- |
 | [1: stock movements](task1/TASK.md) | `cd task1` | Small function; retries and validation |
-| [2: inventory reservations](task2/TASK.md) | `cd task2` | Durable state, conflicts, expiry, contention, events |
+| [2: recovery incident](task2/TASK.md) | `cd task2` then `python3 incident.py` | Legacy migration, lost notifications, and a live reporting rebuild |
 
 If the presenter demonstrated task 1, label your replay as practice with prior
 exposure. Task 2 starts independently. Keep supplied tests intact; add tests when
