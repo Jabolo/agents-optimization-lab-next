@@ -25,6 +25,21 @@ relative to that root; test commands say when to run them inside a task folder.
 4. **Work normally with your agent.** Inspect the result and run checks. Then use [RETRO.md](RETRO.md) in a fresh chat, choose one workflow change, and try it using [EXPERIMENT.md](EXPERIMENT.md).
 5. **Record your decision.** What did you observe? What did you change? What will you keep, change, or investigate next, and what evidence supports that choice?
 
+When saving output, check your current folder: `runs/initial/` is relative to the
+repository root; from inside `task2/` the same folder is `../runs/initial/`.
+For example, in a macOS or Linux shell, run these **from the repository root**.
+Choose new filenames if these already exist: redirection overwrites them.
+
+```sh
+mkdir -p runs/initial
+(cd task2 && python3 incident.py) > runs/initial/incident.log 2>&1
+printf '%s\n' "$?" > runs/initial/incident.exit
+```
+
+The log captures both output streams; the exit file records the incident command's
+status, expected to be 1 in the starter. Run the focused test separately. On
+Windows, ask your agent to capture both streams and the exit status for your shell.
+
 To start task 2, point your agent at this repository and paste:
 
 > In this cloned repository, help me investigate task 2 and improve how I work with you. First ask for my usual approach and expectation, or let me mark them unknown; record the starting commit or folder, start time, and a short note in `runs/RESULT.md`. Try to preserve a clean copy of the whole repository in a separate sibling folder without overwriting anything; if blocked, note it and continue. Create `runs/initial/` and `runs/changed/`. From `task2`, run `python3 incident.py` and the focused lost-ack test in TASK.md separately; save stdout, stderr, and each exit status in `runs/initial/`. Explain what happened briefly, then help me solve it normally. Keep supplied tests intact. Save this first attempt's checks and changes in `runs/initial/` too; reserve `runs/changed/` for my later workflow experiment. Help me preserve our interaction for a fresh-chat retro. My observation and final choice are mine.

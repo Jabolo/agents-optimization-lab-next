@@ -69,8 +69,10 @@ to keep or change belong to you.
   contract. A pass covers that scenario; it is not an independent hidden test.
 - **If your agent finishes quickly:** choose one behavior from the contract that
   your checks may not cover. Ask your agent to construct another concrete case,
-  run it, and explain what its result establishes. Decide whether the evidence
-  changes your acceptance or next check. An agent can help, but the choice is yours.
+  run it, and explain what its result establishes. Check its assumptions against
+  the contract: a probe tied to one internal table may not apply to another valid
+  implementation. Decide whether the evidence changes your acceptance or next
+  check. An agent can help, but the choice is yours.
 - **Lab outcome:** you can name one workflow habit or experiment, an observation
   supported by a real output or interaction, and what you will keep, change, or
   investigate next. You can reach this outcome while some tests remain red.
