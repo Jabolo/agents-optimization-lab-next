@@ -58,7 +58,7 @@ attach them. A new chat does not automatically see the old one; see [RETRO.md](R
 
 - **Incident checked:** task 2 starts with one delivery and zero retries. A repaired incident retries the same notification once and acknowledges it once. This local check does not prove durable reporting.
 - **Implementation checked:** run the full supplied suite from your selected task and inspect its output. Green tests cover the listed examples, not every possible behavior; task 2's complete [contract](task2/CONTRACT.md) is available from the start.
-- **Challenge a result:** after a green suite, or for a repaired slice, [choose a contract claim and try another case](task2/TASK.md#challenge-a-result). A useful check can pass, fail, or remain inconclusive.
+- **Challenge a result:** optionally choose a claim from your selected task and try another case, even if the full suite is still red. [Task 2 has a guided challenge](task2/TASK.md#challenge-a-result); task 1 participants can use their own task card. A useful check can pass, fail, or remain inconclusive.
 - **Workflow learned:** record one observation grounded in your interaction, try one change, and state what happened or what remains unknown. You can do this even if the code is unfinished or your current workflow is already useful.
 
 If you saw the task-1 demo, label a replay as prior exposure. Task 1 and task 2 are different problems, so their timings do not measure a workflow improvement. Keep supplied tests intact; add checks when useful.

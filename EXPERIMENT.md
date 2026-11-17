@@ -13,6 +13,21 @@ The optional [task-2 boundary map](task2/TASK.md#challenge-a-result) is one
 technique to test, including after a green suite; compare its evidence and effort
 with your usual approach rather than assuming that more review is always better.
 
+Want to try a reusable practice? Choose one friction from your retro and ask
+your existing agent to draft a short instruction or checklist in your notes. For
+example, adapt this prompt:
+
+> Based on this retro, help me draft a short reusable instruction for the
+> friction I choose. Save it in `runs/changed/` or my notes, then apply it once
+> to a review or check I select. Preserve the request and actual result,
+> including any extra steps or visible usage. Do not invent an improvement;
+> help me decide whether to keep, change, or remove it.
+
+This is one optional Adapt experiment; no installation is needed. If your agent
+supports skills, you can later turn a useful instruction into a skill for another
+task. You can instead test a different agent, model, tool, or your own idea. A
+practice that adds overhead without useful evidence can be discarded.
+
 For example: “My agent reported success but showed no check output. I expect
 asking for the actual result to make review clearer; it may add a tool call.”
 Try that one request, retain the command and output, and decide whether it gave
@@ -33,10 +48,11 @@ Choose a practical route:
   files/commit match. If no clean baseline is available, record that limitation
   and use Adapt, or stop and ask for help.
 
-For repeat, keep task, requirements, supplied tests, and environment constant.
-Record any solution exposure or retained memory. If you also change the model,
-prompt, and framework, label it a combined experiment; it cannot isolate effects.
-Task 1 versus task 2 is not a controlled comparison.
+For repeat, keep the task, requirements, supplied tests, and other conditions
+constant where practical; vary the one change you chose, such as the model.
+Record unavoidable differences, solution exposure, and retained memory. If you
+change the model, prompt, and framework together, label it a combined experiment;
+it cannot isolate effects. Task 1 versus task 2 is not a controlled comparison.
 
 Measure only what you can observe:
 
@@ -55,6 +71,10 @@ are different. Optional `check.py` records method outcomes separately from
 failure/error records and fingerprints task files; its elapsed time is only suite
 runtime. Record solving and retro intervals yourself. Added tests change the
 oracle, so disclose them and retain supplied-suite results for comparisons.
+The discovery command also includes test files you add under `tests/`, so its
+total may combine both sets. Identify supplied and added named results in `-v`
+output, or ask your agent to run each original supplied test file separately
+using `-p` and save those outputs.
 
 Same tests and a smaller elapsed time are useful observations. One repeat is not
 proof that the workflow caused a speedup: familiarity, cache, randomness, latency,
