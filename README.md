@@ -9,7 +9,9 @@ Work individually at your own pace using your usual agent, model, skills, tools,
 In the room, choose one task, run its starting check, work normally with your
 agent, and notice one thing about your workflow. An unfinished task is fine.
 During the closing, save your observation, evidence location, and next step in
-`runs/RESULT.md` or a short note; keep your working copy and any logs.
+`runs/RESULT.md` or a short note; keep your working copy, logs, and Room chat
+tab open (or ask for a brief 5-line inline summary) rather than running a full
+retro export at the closing bell.
 
 In the **vibe lounge**, open that same copy and continue where you stopped. Give
 a fresh chat your interaction and evidence using [RETRO.md](RETRO.md), choose one
@@ -85,13 +87,13 @@ python3 --version   # Windows PowerShell: py -3 --version
 
 4. **Work normally with your agent.** Point your agent at [AGENTS.md](AGENTS.md) (helpful for tools that do not auto-load it) and paste a starter prompt:
 
-   - **Task 2:**
+   - **Task 2 (bounded room slice first — full `task2/CONTRACT.md` remains available once you inspect this slice or continue in the lounge):**
 
-     > Read `AGENTS.md` and `task2/TASK.md` (refer to `task2/CONTRACT.md` as needed). Start from my baseline in `runs/RESULT.md` and the initial checks in `runs/initial/` (run `task2/incident.py` and the `lost_ack` check first if not run yet). Help me investigate and fix the incident or a bounded slice using my normal workflow. Keep supplied tests intact, show actual outputs, and save this attempt's checks in `runs/initial/`.
+     > Read `AGENTS.md` and `task2/TASK.md` (refer only to the sections of `task2/CONTRACT.md` needed for this slice). Start from my baseline in `runs/RESULT.md` and the initial checks in `runs/initial/` (run `task2/incident.py` and the `lost_ack` check first if not run yet). Fix ONLY the bounded slice covering `task2/incident.py` and `python3 check.py task2 -p test_recovery.py` — do not implement `test_amendments.py` or `test_rebuild.py` until I ask. Keep supplied tests intact, leave `runs/RESULT.md` for me to write, show actual outputs and exit codes, and save this attempt's checks in `runs/initial/`.
 
    - **Task 1:**
 
-     > Read `AGENTS.md` and `task1/TASK.md`. Start from my baseline note in `runs/RESULT.md` and the initial output in `runs/initial/` (run the initial `task1` check first if not run yet). Help me inspect the failures, repair `task1/stock.py`, and verify edge cases using my normal workflow. Keep supplied tests intact, show actual outputs and exit codes, and save this attempt's checks in `runs/initial/`.
+     > Read `AGENTS.md` and `task1/TASK.md`. Start from my baseline note in `runs/RESULT.md` and the initial output in `runs/initial/` (run the initial `task1` check first if not run yet). Help me inspect the failures, repair `task1/stock.py`, and verify edge cases using my normal workflow. Keep supplied tests intact, leave `runs/RESULT.md` for me to write, show actual outputs and exit codes, and save this attempt's checks in `runs/initial/`.
 
 5. **Retro, one experiment, and decision.** When ready, including if you are stuck, open a **fresh chat** (it cannot see prior history automatically) with [RETRO.md](RETRO.md), pick **one** change in [EXPERIMENT.md](EXPERIMENT.md) (`Adapt` or `Repeat`), save new evidence in `runs/changed/`, and record your choice in `runs/RESULT.md`. Start this in the room if time allows, or continue in the vibe lounge.
 

@@ -21,7 +21,7 @@ python3 task2/incident.py
 python3 check.py task2 -p test_recovery.py -k lost_ack --record runs/initial/lost-ack.json
 ```
 
-(Or from inside `task2/`, run `python3 incident.py` and `python3 -m unittest discover -s tests -p test_recovery.py -k lost_ack -v`, saving manual output to `../runs/initial/`.)
+(Or from inside `task2/`, run `python3 incident.py` and `python3 -m unittest discover -s tests -p test_recovery.py -k lost_ack -v`, saving manual output to `../runs/initial/`.) Because `unittest` and `check.py` write test output to `stderr`, always capture with `2>&1` on macOS/Linux (`*>&1` in PowerShell) and choose a fresh `--record` filename each run (`check.py` refuses existing JSON files).
 
 The starter is intentionally broken: `incident.py` uses temporary local files,
 delivers once before restart and zero times on retry, and prints
@@ -44,10 +44,7 @@ deduplication. The focused `lost_ack` check fails for the same missing retry.
    If you plan a clean `Repeat`, keep an untouched sibling copy of the whole repo
    (or a second extraction of the same ZIP) before editing;
    if sandbox-blocked, note it and use `Adapt`.
-3. **Work normally with your agent** on one bounded slice (a useful start in a
-   short session) or the full [CONTRACT.md](CONTRACT.md). Run focused `-p`/`-k`
-   checks as you go, keep supplied tests intact, and save this attempt's checks
-   in `runs/initial/`.
+3. **Work normally with your agent** on the recommended 30-minute room slice (`task2/incident.py` + `python3 check.py task2 -p test_recovery.py`) before expanding to `test_amendments.py`, `test_rebuild.py`, or the full [CONTRACT.md](CONTRACT.md). Run focused `-p`/`-k` checks as you go, keep supplied tests intact, leave `runs/RESULT.md` for your own notes, and save this attempt's checks in `runs/initial/`.
 4. **Retro and one experiment:** Ready to reflect, stuck, or finished? Run
    [RETRO.md](../RETRO.md) in a **fresh chat**, choose one workflow
    change in [EXPERIMENT.md](../EXPERIMENT.md) (`Adapt` or `Repeat`), save new

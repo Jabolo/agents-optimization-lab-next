@@ -13,6 +13,7 @@ Copy this template to `runs/RESULT.md` (`runs/` is ignored by Git so personal no
 
 - **What I observed, and where the evidence is:**
 - **My next step in the vibe lounge:**
+- **Optional 30-min room share:** `I noticed ___; my evidence is at ___; in the lounge I'll test ___.`
 
 ## Core Decision (5 lines)
 

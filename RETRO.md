@@ -20,22 +20,30 @@ changed/new files against your untouched second ZIP copy (for example
 
 ## 2. Package the interaction and raw logs
 
-Ask your implementation agent to save a clearly labeled interaction summary,
-commands, raw outputs with exit codes, `git status --short --ignored`, diff from
-baseline, and relevant untracked files in `runs/initial/`:
+Choose the path that matches your fresh chat (in the 30-minute room, **do not spend the 2-minute save cue running a full export**; keep your Room chat tab open or grab the fast summary below and run Step 3 in the vibe lounge):
 
-> Package our interaction for a fresh-chat retro in `runs/initial/`: save a
-> clearly labeled summary, exact commands, raw outputs with exit statuses,
-> `git status --short --ignored`, `git diff <baseline-commit>` (or changed/new
-> files if there is no `.git/`), and paths to relevant new files. For a chat
-> without workspace access, also save or attach the contents of those files,
-> labeled with their original paths. Include only files I choose to share; mark
-> omissions `unknown`. Quote counts and exit codes verbatim from the raw logs.
-> Do not invent a transcript or my personal observations.
+- **Fast path (recommended when your fresh chat can access this workspace — ~15s):**
+  Your fresh chat can read `runs/initial/` and run `git status --short --ignored` and `git diff <baseline-commit>` on demand. Keep the Room chat tab open or paste this short prompt:
 
-*Fallback if your agent cannot write into `runs/initial/`:* ask it to print that
-labeled package directly in chat so you can paste or save it yourself, and mark
-missing files `unknown`.
+  > Save a brief factual handoff in `runs/initial/summary.md` (or reply inline): scope worked, modified/new file paths, exact check commands with verbatim method counts and exit codes under `runs/initial/`, remaining gaps, and `unknown` for omissions. Do not export full diffs or edit `runs/RESULT.md`.
+
+- **Full export path (only if your fresh chat cannot access your workspace):**
+  Ask your implementation agent to save a clearly labeled interaction summary,
+  commands, raw outputs with exit codes, `git status --short --ignored`, diff from
+  baseline, and relevant untracked files in `runs/initial/`:
+
+  > Package our interaction for a fresh-chat retro in `runs/initial/`: save a
+  > clearly labeled summary, exact commands, raw outputs with exit statuses,
+  > `git status --short --ignored`, `git diff <baseline-commit>` (or changed/new
+  > files if there is no `.git/`), and paths to relevant new files. For a chat
+  > without workspace access, also save or attach the contents of those files,
+  > labeled with their original paths. Include only files I choose to share; mark
+  > omissions `unknown`. Quote counts and exit codes verbatim from the raw logs.
+  > Do not invent a transcript or my personal observations.
+
+  *Fallback if your agent cannot write into `runs/initial/`:* ask it to print that
+  labeled package directly in chat so you can paste or save it yourself, and mark
+  missing files `unknown`.
 
 ## 3. Run the fresh-chat analysis
 
