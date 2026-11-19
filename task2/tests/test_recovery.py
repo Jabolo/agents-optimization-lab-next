@@ -84,10 +84,12 @@ class MigrationTests(unittest.TestCase):
     def test_reopen_is_idempotent_and_no_synthetic_events(self):
         for _ in range(3):
             conn = connect(self.path)
-            self.assertEqual(conn.execute('PRAGMA user_version').fetchone()[0], 2)
-            self.assertEqual(conn.execute('SELECT COUNT(*) FROM events').fetchone()[0], 3)
-            self.assertEqual(Service(conn).available('tea'), 7)
-            conn.close()
+            try:
+                self.assertEqual(conn.execute('PRAGMA user_version').fetchone()[0], 2)
+                self.assertEqual(conn.execute('SELECT COUNT(*) FROM events').fetchone()[0], 3)
+                self.assertEqual(Service(conn).available('tea'), 7)
+            finally:
+                conn.close()
 
     def test_mid_migration_interruption_rolls_back_schema_and_rows(self):
         before = disk_state(self.path)
@@ -98,7 +100,8 @@ class MigrationTests(unittest.TestCase):
             raise RuntimeError('simulated interruption before commit')
 
         with self.assertRaisesRegex(RuntimeError, 'simulated interruption'):
-            connect(self.path, migration_hook=fail_before_commit)
+            conn = connect(self.path, migration_hook=fail_before_commit)
+            conn.close()
         self.assertEqual(len(calls), 1)
         self.assertEqual(disk_state(self.path), before)
         conn = connect(self.path)
@@ -125,7 +128,8 @@ class MigrationTests(unittest.TestCase):
                     conn.close()
                     before = disk_state(path)
                     with self.assertRaises(MigrationError):
-                        connect(path)
+                        conn = connect(path)
+                        conn.close()
                     self.assertEqual(disk_state(path), before)
 
     def test_sqlite_exception_during_migration_propagates_and_rolls_back(self):
@@ -140,7 +144,8 @@ class MigrationTests(unittest.TestCase):
                         raise error_type('injected SQLite failure')
 
                     with self.assertRaises(error_type):
-                        connect(path, migration_hook=fail)
+                        conn = connect(path, migration_hook=fail)
+                        conn.close()
                     self.assertEqual(disk_state(path), before)
                     conn = connect(path)
                     try:
@@ -157,7 +162,8 @@ class MigrationTests(unittest.TestCase):
                 conn.close()
                 before = disk_state(self.path)
                 with self.assertRaises(MigrationError):
-                    connect(self.path)
+                    conn = connect(self.path)
+                    conn.close()
                 self.assertEqual(disk_state(self.path), before)
 
     def test_two_connections_can_race_to_upgrade(self):

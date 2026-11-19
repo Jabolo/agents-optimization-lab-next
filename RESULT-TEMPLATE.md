@@ -1,30 +1,35 @@
 # My workflow experiment
 
-Copy this template to `runs/RESULT.md` (create `runs/` if needed). That folder is
-ignored by Git so your personal observations are not added by a routine commit.
+Copy this template to `runs/RESULT.md` (`runs/` is ignored by Git so personal notes stay local). `unknown` is always acceptable.
 
-Task / baseline commit or folder:
-Prior exposure (demo, solution, earlier attempt):
-Agent / model / settings / environment (unknown is fine):
-Usual approach / expectation:
+## Quick Baseline (3 lines)
 
-| Observation | Initial attempt | Changed approach |
+- **Task / baseline commit (or folder) / prior exposure:**
+- **Agent / model / settings / usual approach:**
+- **One expectation before editing:**
+- **Optional start time:**
+
+## Room-to-lounge checkpoint
+
+- **What I observed, and where the evidence is:**
+- **My next step in the vibe lounge:**
+
+## Core Decision (5 lines)
+
+- **One observation grounded in the interaction (with raw evidence path):**
+- **One workflow change chosen + route (`Adapt` or `Repeat`) + expected overhead:**
+- **What happened / supporting command, exit code, or diff:**
+- **What this does NOT establish:** *(For `Adapt`, do not compare total elapsed time against Initial.)*
+- **Keep / change / remove / explore next (and Q&A line: `I changed ___; I observed ___; I would use it again when ___; I still don't know ___`):**
+
+## Optional Metrics (`unknown` is fine)
+
+`unittest` `Ran N` counts test methods while failures/errors can include multiple subtests per method; `check.py` splits `supplied` vs `added` method outcomes separately and checks `supplied_tests_intact`.
+
+| Measure | Initial (`runs/initial/`) | Changed (`runs/changed/`) |
 | --- | --- | --- |
-| Start / stop / elapsed / pauses | | |
-| Setup / retro time | | |
-| Evidence folder / clean whole-repository copy | | |
-| Human steering messages / review minutes | | |
-| Command / exit status / raw summary (methods vs subtests) | | |
-| Visible cost / tokens, including review | | |
-| Remaining quality gaps | | |
-
-Fresh-chat retro evidence supplied / missing:
-One observation grounded in the interaction:
-One change chosen / expected benefit / overhead:
-Adapt or repeat / what else differed:
-What happened / supporting output or diff:
-What this does NOT establish:
-Keep / change / remove / explore, and when:
-Question for closing Q&A:
-
-Keep this personal record local. Sharing is voluntary.
+| Active work / pauses / retro time | | |
+| Human steering messages / review min | | |
+| Command, exit code & raw summary | | |
+| Visible cost / tokens (incl. review) | | |
+| Files changed & remaining gaps | | |

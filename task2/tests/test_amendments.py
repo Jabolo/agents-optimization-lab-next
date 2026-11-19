@@ -3,7 +3,10 @@ import sqlite3
 import threading
 import unittest
 
-import test_reservations as base
+try:
+    import test_reservations as base
+except ModuleNotFoundError:
+    from tests import test_reservations as base
 from inventory import Conflict, Service, Unavailable
 from inventory.storage import connect, reservation
 

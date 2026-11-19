@@ -21,6 +21,15 @@ contract below is available when needed; you do not need to read it all before
 running the first check. Save the interaction and run a fresh-chat retro. One
 well-examined failure or partial improvement is useful even with tests still red.
 
+## Quick map
+
+- **Reservations:** `reserve`, `cancel`, `expire`, `available`, `events` — [Public contract](#public-contract)
+- **Amendments:** `amend`, optimistic `version`, `change_id` replay — [Amendments](#amendments-identity-is-not-current-state)
+- **v1 Migration:** `connect` v1→v2 upgrade, `migration_hook`, validation — [Upgrade and interrupted delivery incident](#upgrade-and-interrupted-delivery-incident)
+- **Incident / Outbox:** durable `events` outbox and `Service.dispatch` — [Upgrade and interrupted delivery incident](#upgrade-and-interrupted-delivery-incident)
+- **Reporting Projection:** `Projection`, `bootstrap`, `apply`, dedup, `Gap` — [Separate reporting database](#separate-reporting-database)
+- **Online Rebuild & Quarantine:** fenced capture, staging/cutover, `repair_*`, `quarantined` — [Online reporting rebuild](#online-reporting-rebuild-no-missed-notifications) / [Quarantine](#operator-repair-of-poisoned-staging)
+
 ## Public contract
 
 The fixture creates SQLite tables with `inventory.storage.connect(path)`; use
@@ -69,7 +78,7 @@ surrogate, raises plain `ValueError` before lookup or mutation.
    must not oversell. State and retry identity survive closing/reopening a DB.
 6. Each successful transition creates exactly one event with `(key, kind)` where
    kind is `reserved`, `amended`, `cancelled`, or `expired`. `events(key)` returns these in
-   transition order. Every operation is atomic: reservation, counter, and event
+   transition order. An unknown key returns `[]`. Every operation is atomic: reservation, counter, and event
    either all commit or all roll back. A failed event insert must not leave any
    state change. `expire` is atomic across the entire batch.
 
@@ -315,7 +324,7 @@ hooks; existing API behavior is unchanged outside a rebuild.
   snapshot key or event ID respectively; a changed payload under an existing
   identity raises `Conflict`. Apply the same shape/range validation as bootstrap
   and apply. A seen event must have ID <= W; a staged event must have ID > W.
-  They may arrive before snapshot pages. New snapshots/seen records cannot be
+  Violations raise `Conflict`. They may arrive before snapshot pages. New snapshots/seen records cannot be
   inserted after cutover; exact retries remain `False`, changed payloads conflict.
 - `cutover(token, fence)` first validates token/fence shapes and ranges, then
   looks up the token (`KeyError` if unknown), then compares fence token/watermark
@@ -424,10 +433,18 @@ do not need to finish this whole service before doing the fresh-chat retro.
 
 ## Where to look
 
-`storage.py` defines the schema and explicit transaction-capable connection;
-`allocation.py` handles reserves; `lifecycle.py` handles cancellation/expiry;
-`events.py` handles event records; `service.py` exposes the interface. The starter
-contains interacting faults, not just TODOs. Inspect actual behavior before
+Paths relative to `task2/`:
+
+- `incident.py` and `replay.py`: starter incident reproduction and disclosed recovery scenario
+- `inventory/storage.py`: schema, transaction-capable connection, and v1 migration
+- `inventory/allocation.py`: reservations and stock allocation
+- `inventory/lifecycle.py`: cancellation and expiry
+- `inventory/events.py`: event records and outbox/dispatch helpers
+- `inventory/service.py`: source `Service` interface
+- `inventory/projection.py`: reporting `Projection`, online rebuild, and repair/quarantine
+- `tests/`: `test_reservations.py`, `test_amendments.py`, `test_recovery.py`, `test_rebuild.py`
+
+The starter contains interacting faults, not just TODOs. Inspect actual behavior before
 choosing whether to patch locally or simplify the design.
 
 The tests use temporary databases, explicit clocks, and competing connections.
@@ -435,4 +452,4 @@ They include a SQLite trigger that rejects an event to check rollback. No networ
 sleep, external database, framework, or account is needed.
 
 Green tests cover listed examples. Ask what invariants or failure paths still
-need evidence. Measure the process as well as the result; see `../EXPERIMENT.md`.
+need evidence. Measure the process as well as the result; see [EXPERIMENT.md](../EXPERIMENT.md).

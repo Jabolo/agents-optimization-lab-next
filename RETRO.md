@@ -1,36 +1,73 @@
 # Question the interaction in a fresh chat
 
-Give a new chat the relevant conversation/transcript (or clearly labeled
-summary), task contract, diff, commands and actual output. A new chat cannot
-automatically see the previous one. If using the same workspace, identify exactly
-which artifacts it should inspect. Save observations before accepting advice.
-If a transcript is unavailable, label a concise summary as such. Include relevant
-new files as well as changes from the recorded baseline. A plain `git diff` may
-miss staged, committed, untracked, or ignored files, including `runs/`. For
-example, ask your agent:
+A new chat cannot automatically see your earlier chat. Before asking for advice,
+package the real evidence so the fresh chat can verify what happened instead of
+guessing.
 
-> Save a clearly labelled interaction summary, the commands and actual outputs
-> with exit statuses, changes from my recorded baseline, and relevant new files
-> in `runs/initial/`. Mark missing evidence unknown. Tell me which files to give
-> the fresh chat; do not invent a transcript or my personal observations.
+## 1. Collect complete workspace changes (avoid `git diff` blind spots)
 
-Give that fresh chat the saved files and the selected task card, or identify
-their exact paths if it can access your workspace. For task 2, also give it the
-relevant contract. Keep the first attempt's final checks in `runs/initial/`;
-`runs/changed/` is for the later experiment.
+A plain `git diff` misses staged, committed, untracked, and ignored files
+(including `runs/`). Run these from the repository root:
 
-Try this and question the answer:
+```sh
+git status --short --ignored
+git diff <baseline-commit>
+```
 
-> Analyze how I used my coding agent on this task. Where did my instructions,
-> context, tool/model choices, or checking create friction or unnecessary work?
-> Cite specific interaction excerpts, changes, or command results. Separate
-> observed facts from hypotheses and missing evidence. What did I do well?
-> Suggest one small workflow change worth testing next, its expected benefit,
-> likely overhead, and how I could tell whether it helped. Do not claim a speedup
-> or cost saving from data I haven't supplied. Ask me about missing context.
+*Using GitHub Download ZIP (no `.git/` folder)?* Skip the `git` commands, list
+changed/new files against your untouched second ZIP copy (for example
+`diff -ru <clean-copy> .`), and inspect `runs/initial/` directly.
 
-Follow up: What evidence contradicts that advice? Could the agent already do this
-without another step? What should I remove? What result would change my mind?
+## 2. Package the interaction and raw logs
 
-Choose one change yourself. A critique is a hypothesis; testing it is the next
-step. It is fine to retain your approach or conclude the evidence is insufficient.
+Ask your implementation agent to save a clearly labeled interaction summary,
+commands, raw outputs with exit codes, `git status --short --ignored`, diff from
+baseline, and relevant untracked files in `runs/initial/`:
+
+> Package our interaction for a fresh-chat retro in `runs/initial/`: save a
+> clearly labeled summary, exact commands, raw outputs with exit statuses,
+> `git status --short --ignored`, `git diff <baseline-commit>` (or changed/new
+> files if there is no `.git/`), and paths to relevant new files. For a chat
+> without workspace access, also save or attach the contents of those files,
+> labeled with their original paths. Include only files I choose to share; mark
+> omissions `unknown`. Quote counts and exit codes verbatim from the raw logs.
+> Do not invent a transcript or my personal observations.
+
+*Fallback if your agent cannot write into `runs/initial/`:* ask it to print that
+labeled package directly in chat so you can paste or save it yourself, and mark
+missing files `unknown`.
+
+## 3. Run the fresh-chat analysis
+
+- **If the fresh chat can access your workspace:** tell it the exact paths to
+  read—`runs/initial/`, `runs/RESULT.md`, the selected task card (`task1/TASK.md`
+  or `task2/TASK.md` plus `task2/CONTRACT.md`), and the supplied `tests/*.py`
+  files (`task1/tests/test_stock.py` or `task2/tests/*.py`) so it can verify test
+  coverage directly.
+- **If the fresh chat cannot access your workspace:** attach or paste those saved
+  files, the contents of relevant new files, the task card/contract, and relevant
+  `tests/*.py` files. Label paths and mark any omitted evidence unknown.
+
+Paste and question the answer:
+
+> Analyze how I used my coding agent on this task using the saved evidence in
+> `runs/initial/`, `runs/RESULT.md`, the task card/contract, and the relevant
+> `tests/*.py` files. Where did my instructions, context, model/tool choices, or
+> checks create friction or unnecessary work? Quote numbers, counts, and exit
+> codes verbatim from raw logs without smoothing or paraphrasing. Cite specific
+> interaction excerpts, changes, or command results; separate observed facts
+> from hypotheses and missing evidence. What worked well? Suggest one small
+> workflow change worth testing next in `EXPERIMENT.md`, its expected benefit,
+> likely overhead, and how I could tell whether it helped. Ask me about missing
+> context.
+
+Follow up critically:
+- What evidence contradicts that advice?
+- Could the agent already do this without adding another step?
+- What should I **remove** instead of adding?
+- What result would change my mind?
+
+Pick **one** change yourself in [EXPERIMENT.md](EXPERIMENT.md) and record your
+baseline note in [RESULT-TEMPLATE.md](RESULT-TEMPLATE.md) (`runs/RESULT.md`).
+A critique is a hypothesis; testing it is the next step, and keeping your
+current workflow is a valid conclusion.

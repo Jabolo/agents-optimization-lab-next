@@ -2,75 +2,109 @@
 
 **Use your coding agent on a real task. Examine how you worked, then try one change to your workflow.**
 
-You can use your usual agent, model, skills, tools, and delegation. Work at your own pace. The code gives you evidence; your goal is to leave with a choice you can explain: what to keep, change, or investigate next.
+Work individually at your own pace using your usual agent, model, skills, tools, and delegation—nothing extra is required. The code gives you grounded evidence so you can leave with a clear choice: what to keep, change, or test next.
 
-You need Python 3.11+ and your existing authenticated agent. No packages or server are required. On Windows, use a verified `py -3` in place of `python3`.
+## Your 30-minute session and vibe lounge
+
+In the room, choose one task, run its starting check, work normally with your
+agent, and notice one thing about your workflow. An unfinished task is fine.
+During the closing, save your observation, evidence location, and next step in
+`runs/RESULT.md` or a short note; keep your working copy and any logs.
+
+In the **vibe lounge**, open that same copy and continue where you stopped. Give
+a fresh chat your interaction and evidence using [RETRO.md](RETRO.md), choose one
+small change in [EXPERIMENT.md](EXPERIMENT.md), try it, and record what happened
+or what remains unknown. If you already reached the retro in the room, continue
+your experiment instead. There is no need to finish both tasks or start over.
+You can work through the whole lab at your own pace even without the room session.
+
+## Prerequisites
+
+- Your existing authenticated coding agent
+- Python 3.11+ (no extra packages, server, or new account needed):
+
+```sh
+python3 --version   # Windows PowerShell: py -3 --version
+```
+
+## Choose your task
+
+- **[Task 1 — stock movements](task1/TASK.md):** ~5-minute warm-up or demo (`stock.py`).
+- **[Task 2 — recovery incident](task2/TASK.md):** deeper service incident (independent of Task 1, best for realistic workflow friction). In the short room session, start with `incident.py` and one bounded slice. Debugging itself is useful material for [RETRO.md](RETRO.md).
 
 ## Start
 
-If you are viewing this on GitHub, clone the lab and open the **repository root**
-in your coding agent (or give your agent the URL and ask it to do this):
+1. **Get the repo** and open its **root** in your coding agent:
 
-```sh
-git clone https://github.com/Jabolo/agents-optimization-lab-next.git
-cd agents-optimization-lab-next
-```
+   ```sh
+   git clone https://github.com/Jabolo/agents-optimization-lab-next.git
+   cd agents-optimization-lab-next
+   ```
 
-Already have a copy? Open its root in your agent. Paths such as `runs/` below are
-relative to that root; test commands say when to run them inside a task folder.
+   *Using GitHub Download ZIP?* It extracts to `agents-optimization-lab-next-main/` with no `.git/` folder—keep a second fresh extracted copy if you plan a Repeat later, and skip `git` diff commands.
 
-1. **Choose a task.** [Task 1](task1/TASK.md) is the small demo. [Task 2](task2/TASK.md) is a deeper recovery incident; it is independent of task 1.
-2. **Before editing**, note the starting commit or folder, start time, your usual approach, and one expectation. For an optional repeat, ask your agent to preserve an untouched copy of the **whole repository** in a separate sibling folder, outside this repository, without overwriting anything. If that is blocked, note it and continue; you can use the Adapt route later. Make `runs/initial/` and `runs/changed/` for your evidence. Copy [RESULT-TEMPLATE.md](RESULT-TEMPLATE.md) to `runs/RESULT.md`, or use a short note in your own format. Unknown values are fine.
-3. **Observe the starting state.** For task 1, run `python3 -m unittest discover -s tests -v` in `task1`. For task 2, run `python3 incident.py` in `task2`, then the focused check shown in [its task card](task2/TASK.md). Save the actual output, including stderr, and the exit status. Run the task-2 commands separately: the expected nonzero incident exit would stop a chain joined by `&&`. Failing assertions and implementation exceptions are expected in the starter; missing Python, import errors, and undiscovered tests are setup problems.
-4. **Work normally with your agent.** Inspect the result and run checks. Then use [RETRO.md](RETRO.md) in a fresh chat, choose one workflow change, and try it using [EXPERIMENT.md](EXPERIMENT.md).
-5. **Record your decision.** What did you observe? What did you change? What will you keep, change, or investigate next, and what evidence supports that choice?
+2. **Run your first red check right away** (from the repository root; on Windows use `py -3`):
 
-When saving output, check your current folder: `runs/initial/` is relative to the
-repository root; from inside `task2/` the same folder is `../runs/initial/`.
-For example, in a macOS or Linux shell, run these **from the repository root**.
-Choose new filenames if these already exist: redirection overwrites them.
+   - **Task 1:**
 
-```sh
-mkdir -p runs/initial
-(cd task2 && python3 incident.py) > runs/initial/incident.log 2>&1
-printf '%s\n' "$?" > runs/initial/incident.exit
-```
+     ```sh
+     python3 check.py task1 --record runs/initial/task1-tests.json
+     ```
 
-The log captures both output streams; the exit file records the incident command's
-status, expected to be 1 in the starter. Run the focused test separately. On
-Windows, ask your agent to capture both streams and the exit status for your shell.
+   - **Task 2** (run separately—`incident.py` is expected to exit `1`):
 
-To start task 2, point your agent at this repository and paste:
+     ```sh
+     python3 task2/incident.py
+     python3 check.py task2 -p test_recovery.py -k lost_ack --record runs/initial/lost-ack.json
+     ```
 
-> In this cloned repository, help me investigate task 2 and improve how I work with you. First ask for my usual approach and expectation, or let me mark them unknown; record the starting commit or folder, start time, and a short note in `runs/RESULT.md`. Try to preserve a clean copy of the whole repository in a separate sibling folder without overwriting anything; if blocked, note it and continue. Create `runs/initial/` and `runs/changed/`. From `task2`, run `python3 incident.py` and the focused lost-ack test in TASK.md separately; save stdout, stderr, and each exit status in `runs/initial/`. Explain what happened briefly, then help me solve it normally. Keep supplied tests intact. Save this first attempt's checks and changes in `runs/initial/` too; reserve `runs/changed/` for my later workflow experiment. Help me preserve our interaction for a fresh-chat retro. My observation and final choice are mine.
+   `check.py` prints a 1-line `Summary` even without `--record`, and `--record` saves structured JSON. To also capture console output and exit codes (needed for `incident.py` or manual `unittest` runs—note `unittest` writes 100% of its output to `stderr`, so `2>&1` is mandatory, and `>` overwrites existing files, so use unique filenames):
 
-For task 1, paste:
+   - **macOS / Linux:**
 
-> In this cloned repository, help me investigate task 1 and improve how I work with you. First ask for my usual approach and expectation, or let me mark them unknown; record the starting commit or folder, start time, and a short note in `runs/RESULT.md`. Try to preserve a clean copy of the whole repository in a separate sibling folder without overwriting anything; if blocked, note it and continue. Create `runs/initial/` and `runs/changed/`. From `task1`, run `python3 -m unittest discover -s tests -v`; save stdout, stderr, and exit status in `runs/initial/`. Explain what happened briefly, then help me solve it normally. Keep supplied tests intact. Save this first attempt's checks and changes in `runs/initial/` too; reserve `runs/changed/` for my later workflow experiment. Help me preserve our interaction for a fresh-chat retro. My observation and final choice are mine.
+     ```sh
+     mkdir -p runs/initial
+     python3 task2/incident.py > runs/initial/incident.log 2>&1
+     printf '%s\n' "$?" > runs/initial/incident.exit
+     ```
 
-If your agent cannot export a transcript, ask it to save a clearly labelled
-summary, actual commands and outputs (including exit status), changes from the
-recorded baseline, and copies of relevant new files in `runs/initial/`. Mark
-missing details unknown. Tell the new chat exactly where to find these files, or
-attach them. A new chat does not automatically see the old one; see [RETRO.md](RETRO.md).
+   - **Windows PowerShell:**
+
+     ```powershell
+     New-Item -ItemType Directory -Force runs/initial | Out-Null
+     py -3 task2/incident.py *>&1 | Tee-Object -FilePath runs/initial/incident.log
+     $LASTEXITCODE | Set-Content runs/initial/incident.exit
+     ```
+
+   Failing assertions and starter exceptions are normal; missing Python, import errors, or zero discovered tests indicate a setup issue.
+
+3. **Jot a short baseline note** in `runs/RESULT.md` using [RESULT-TEMPLATE.md](RESULT-TEMPLATE.md): task and commit/folder, your usual approach, and one expectation (`unknown` is fine). Note your start time if you want to measure elapsed time. Create `runs/initial/` and `runs/changed/` if not already created.
+
+   - **Adapt vs Repeat:** **Adapt** adjusts your current attempt or its next review/check (a practical starting point for the short session or sandboxed workspaces); **Repeat** retries from an untouched sibling copy of the whole repo in a fresh chat.
+   - Make an untouched sibling copy now **only** if you used Download ZIP or plan a Repeat; skip this gracefully if your agent sandbox blocks writing outside the repo.
+
+4. **Work normally with your agent.** Point your agent at [AGENTS.md](AGENTS.md) (helpful for tools that do not auto-load it) and paste a starter prompt:
+
+   - **Task 2:**
+
+     > Read `AGENTS.md` and `task2/TASK.md` (refer to `task2/CONTRACT.md` as needed). Start from my baseline in `runs/RESULT.md` and the initial checks in `runs/initial/` (run `task2/incident.py` and the `lost_ack` check first if not run yet). Help me investigate and fix the incident or a bounded slice using my normal workflow. Keep supplied tests intact, show actual outputs, and save this attempt's checks in `runs/initial/`.
+
+   - **Task 1:**
+
+     > Read `AGENTS.md` and `task1/TASK.md`. Start from my baseline note in `runs/RESULT.md` and the initial output in `runs/initial/` (run the initial `task1` check first if not run yet). Help me inspect the failures, repair `task1/stock.py`, and verify edge cases using my normal workflow. Keep supplied tests intact, show actual outputs and exit codes, and save this attempt's checks in `runs/initial/`.
+
+5. **Retro, one experiment, and decision.** When ready, including if you are stuck, open a **fresh chat** (it cannot see prior history automatically) with [RETRO.md](RETRO.md), pick **one** change in [EXPERIMENT.md](EXPERIMENT.md) (`Adapt` or `Repeat`), save new evidence in `runs/changed/`, and record your choice in `runs/RESULT.md`. Start this in the room if time allows, or continue in the vibe lounge.
 
 ## What counts as progress?
 
-- **Incident checked:** task 2 starts with one delivery and zero retries. A repaired incident retries the same notification once and acknowledges it once. This local check does not prove durable reporting.
-- **Implementation checked:** run the full supplied suite from your selected task and inspect its output. Green tests cover the listed examples, not every possible behavior; task 2's complete [contract](task2/CONTRACT.md) is available from the start.
-- **Challenge a result:** optionally choose a claim from your selected task and try another case, even if the full suite is still red. [Task 2 has a guided challenge](task2/TASK.md#challenge-a-result); task 1 participants can use their own task card. A useful check can pass, fail, or remain inconclusive.
-- **Workflow learned:** record one observation grounded in your interaction, try one change, and state what happened or what remains unknown. You can do this even if the code is unfinished or your current workflow is already useful.
-
-If you saw the task-1 demo, label a replay as prior exposure. Task 1 and task 2 are different problems, so their timings do not measure a workflow improvement. Keep supplied tests intact; add checks when useful.
-
-Optional: from this repository root, `python3 check.py task2 --record runs/initial/tests.json` saves structured full-suite evidence. Choose a new path each time; this measures test execution only, not solving time. The plain unittest command also works.
+- **Incident or slice checked:** Task 2 starts with one delivery and zero retries; a repaired incident retries once and acknowledges once (an in-memory fake, not durable reporting). Full requirements live in [task2/CONTRACT.md](task2/CONTRACT.md).
+- **Optional post-green check:** Challenge a claim even while other tests stay red (see [task2/TASK.md#challenge-a-result](task2/TASK.md#challenge-a-result)), or pick another experiment in [EXPERIMENT.md](EXPERIMENT.md).
+- **Workflow learned:** Leave with one concrete observation, one tested change (or intentional keep), and supporting output—even if tests are still red. If you saw a Task 1 demo, label a replay as prior exposure; Task 1 and Task 2 timings are not comparable.
 
 ## If you get stuck
 
-- Check `python3 --version` (Windows: `py -3 --version`) is 3.11 or newer, and run the command in the selected task folder.
-- An import error or zero discovered tests suggests the wrong folder or Python setup. Ask your agent to show the current folder and exact error, or ask the presenter.
-- Keep your original files and outputs. A partial attempt, failed experiment, or decision to keep your current approach is useful evidence.
+- Confirm `python3 --version` (Windows: `py -3 --version`) is 3.11+ and check your working folder (`repo root` for `check.py`; `task1/` or `task2/` for direct `unittest` runs).
+- **Need a fresh start?** Leave your current copy and notes intact; clone the repo into a new folder or extract the same ZIP again into a separate folder. Git reset and clean commands can delete work, including newly created solution files.
+- Keep partial outputs and unsuccessful experiments—they are useful evidence.
 
-At the closing Q&A, sharing is optional: **I changed ___; I observed ___; I would use it again when ___; I still don't know ___.** You can continue later.
-
-Prototype status: participant comprehension, difficulty, and classroom timing have not been human-tested.
+Optional closing Q&A template: **I changed ___; I observed ___; I would use it again when ___; I still don't know ___.**
